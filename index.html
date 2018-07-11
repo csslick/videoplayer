@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Video Player v0.2</title>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>	
+	<style>
+		*{
+			margin: 0; padding: 0;
+			box-sizing: border-box;
+		}
+		#video{
+			position: relative;
+			width: 100%;
+			background: #000;
+		}
+		#video video{
+			width: 100%;
+		}
+		#video p{
+			display: table;
+		}
+		#file{
+			background: #ccc;
+			height: 0; opacity: 0;
+			display: none;
+		}
+		[for=file]{
+			background: #666;
+			color: white;
+			display: inline-block;
+			width: 100px; height: 30px;
+			padding: 5px 10px;
+			border: 1px solid #ccc;
+			vertical-align: middle;
+			margin-right: 2px;
+			font-size: small;
+		}
+		.btn_play, .btn_stop{
+			height: 30px;
+			padding: 5px 10px;
+			vertical-align: middle;
+			border: none;
+			margin-right: 2px;
+		}
+		#info{
+			position: absolute;
+			right: 20px; top: 20px;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="video">
+		<span id="info">video name</span>
+		<video src="#" id="vid">no video</video>
+		<p>
+			<label for='file'>file
+				<input type='file' id='file'>
+			</label>
+			<button class='btn_play'>play</button>
+			<button class="btn_stop">stop</button>
+		</p>
+	</div>
+	<script>
+		$(function(){
+			// 파일 로드
+			$('#file').on('change', function(){
+				var f = $(this).val();
+				f = f.toLocaleLowerCase();
+				f = f.substr(12);
+				console.log(f);
+				$('#info').text(f);
+				$('#vid').attr('src', f);
+			});
+			
+			// 재생
+			$('.btn_play').on('click', function(){
+				var vid = document.getElementById('vid');
+				if(vid.src){
+					vid.play();
+				}
+			});
+			
+			// 정지
+			$('.btn_stop').on('click', function(){
+				var vid = document.getElementById('vid');
+				if(vid.src){
+					vid.pause();
+				}
+			});			
+			
+		});
+	</script>
+</body>
+</html>
